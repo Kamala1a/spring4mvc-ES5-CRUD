@@ -28,7 +28,7 @@
 		<bean id="esdao" class="com.springExample.dao.es.ESDAO">
 		<constructor-arg name="HOST_IP" value="localhost" />
 		<constructor-arg name="HOST_PORT" value="9300" />
-		<constructor-arg name="CLUSTER_NAME" value="ziffer" />
+		<constructor-arg name="CLUSTER_NAME" value="elasticsearch" />
 		<constructor-arg name="INDEX" value="twitter" />
 		<constructor-arg name="TYPE" value="tweet" />
 	</bean>

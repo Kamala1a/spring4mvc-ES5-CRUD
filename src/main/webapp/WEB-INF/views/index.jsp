@@ -44,6 +44,9 @@
 					type : 'GET',
 					success : function(data) {
 						alert(JSON.stringify(data));
+					},error : function(rsp){
+						console.log(rsp)
+						alert("error:"+rsp.responseText);
 					}
 				});
 		
@@ -57,6 +60,9 @@
 					type : 'GET',
 					success : function(data) {
 						alert(JSON.stringify(data));
+					},error : function(rsp){
+						console.log(rsp)
+						alert("error:"+rsp.responseText);
 					}
 				});
 		
@@ -226,7 +232,9 @@
 			</div>
 		</div>
 		<hr/>
-
+		 <footer>
+        <p>&copy; Tsung Wu</p>
+      </footer>
 
 	</div> <!-- end of container -->
 

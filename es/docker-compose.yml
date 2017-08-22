@@ -1,0 +1,7 @@
+es:
+  image: elasticsearch:5.2.2
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml

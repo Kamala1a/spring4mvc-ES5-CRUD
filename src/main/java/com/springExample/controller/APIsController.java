@@ -3,6 +3,8 @@ package com.springExample.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -68,11 +70,20 @@ public class APIsController {
 	
 	
 	@RequestMapping(value = { "/getAll"}, method = { RequestMethod.GET })
-	public @ResponseBody String getAll(){
+	public @ResponseBody String getAll(HttpServletResponse response){
 		JSONArray jsonArray = new JSONArray();
+		SearchHits hits = null;
+		try{
+			
+		
+		 hits = esdao.searchAll();
+		}catch (Exception e) {
+			e.printStackTrace();
+			 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return e.getMessage();
+		}
 		
 		
-		SearchHits hits = esdao.searchAll();
 		
 		/** prepare result */
 		for (SearchHit hit : hits) {
@@ -90,12 +101,23 @@ public class APIsController {
 	
 	
 	@RequestMapping(value = { "/getUser"}, method = { RequestMethod.GET })
-	public @ResponseBody String getUser(@RequestParam String name){
+	public @ResponseBody String getUser(HttpServletResponse response, @RequestParam String name){
 		
 		JSONArray jsonArray = new JSONArray();
 		
 		/** get user by username */
-		SearchHits hits = esdao.search(name);
+		SearchHits hits = null;
+		try{
+			 hits = esdao.search(name);
+		
+	
+		}catch (Exception e) {
+			e.printStackTrace();
+			 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return e.getMessage();
+		}
+		
+		
 		for (SearchHit hit : hits) {
 			JSONObject json = new JSONObject(hit.getSourceAsString());
 			
@@ -110,11 +132,20 @@ public class APIsController {
 	}
 	
 	@RequestMapping(value = { "/getNameList"}, method = { RequestMethod.GET })
-	public @ResponseBody String getNameList(){
+	public @ResponseBody String getNameList(HttpServletResponse response){
 		JSONArray jsonArray = new JSONArray();
 		
 		/** get user name list by aggregation */
-		Terms terms = esdao.nameAgg();
+		Terms terms = null;
+		try{
+			 terms = esdao.nameAgg();
+			 
+		}catch (Exception e) {
+			e.printStackTrace();
+			 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return e.getMessage();
+		}
+		
 		
 		for (Terms.Bucket entry : terms.getBuckets()) {
 			
@@ -135,6 +166,7 @@ public class APIsController {
 		
 		RestStatus status = esdao.update(id,msg);
 	
+		
 		JSONObject json = new JSONObject();
 		json.put("status", status.getStatus());
 		return json.toString();
