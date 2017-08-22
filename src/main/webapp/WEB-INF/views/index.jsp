@@ -45,7 +45,6 @@
 					success : function(data) {
 						alert(JSON.stringify(data));
 					},error : function(rsp){
-						console.log(rsp)
 						alert("error:"+rsp.responseText);
 					}
 				});

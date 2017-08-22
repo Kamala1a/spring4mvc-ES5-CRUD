@@ -35,9 +35,16 @@ $ docker-compose up
 ### Spring 
 - Run with STS
   - import as Maven project
+  - change context root to "/"
 - Using maven to build WAR file
 
 
 ### Configuration
 Elasticsearch IP Setting in Spring
 - src/main/webapp/WEB-INF/spring-servlet.xml
+
+
+
+### Run On tomcat
+
+visit http://localhost:8080/
